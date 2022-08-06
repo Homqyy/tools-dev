@@ -1,4 +1,3 @@
-
 use warnings;
 use strict;
 use IO::Dir;
@@ -50,6 +49,12 @@ sub rename
 }
 
 ##########################################
+
+if (@ARGV != 3)
+{
+    &usage();
+    exit 1;
+}
 
 &rename(@ARGV, 0)
 
