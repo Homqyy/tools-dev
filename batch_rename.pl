@@ -7,7 +7,7 @@ use File::Basename;
 
 sub usage
 {
-    print "Usage: batch_rename.pl <dir> <old_prefix> <new_prefix>\n"
+    print "Usage: $0 <dir> <old_prefix> <new_prefix>\n"
 }
 
 sub rename
