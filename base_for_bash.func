@@ -1,0 +1,6 @@
+#!/bin/bash
+
+function error_msg
+{
+    echo "$1" >& 2
+}
