@@ -165,6 +165,10 @@ if (-d $gcmake{args}->{config_path})
         exit 1;
     }
 }
+else
+{
+    mkdir $gcmake{args}->{config_path}
+}
 
 open my $profile_fd, "<", $profile
     or die "don't open file $profile: $!";
@@ -201,11 +205,36 @@ gen_cmakelists.pl [I<OPTIONS>] [--] <I<profile>> <I<cmakelists>>
 
  OPTIONS:
     --config_path <config_path>        set a path of config
-    --next_minor                       auto increase minor
+    --next_minor                       automatic increase minor
 
 =head1 DESCRIPTION
 
-=head1 CONSTRUCTOR ARGUMENTS
+=head2 config
+
+Default path of config is C<.gcmake>, and the config file is C<.gcmake/config>. 
+You can define variable in config file and using it in I<profile>.
+Define one variable on each line in config file, and the format is C<variable=value>, 
+so after that you can type C<@@{variable}@@> to refer to C<variable> in I<profile>.
+
+Support some buildin variable of be called C<BUILDIN_VAR> in config file. The C<BUILDIN_VAR> can be used in C<value>, 
+such as has a C<BUILDIN_VAR> of called C<VERSION>, 
+then you can define C<variable=$VERSION> in config file and using it in I<profile>, 
+and the value of C<variable> is dynamic what be determined by C<$VERSION>.
+
+    C<BUILDIN_VAR>:
+        VERSION: major.minor.patch, such as 1.0.0
+
+Such as: have a config as follow:
+    STATIC_VERSION=1.2.1
+    DYNAMIC_VERSION=$VERSION
+
+and have content in I<profile> as follow:
+    project(cjson VERSION @@{STATIC_VERSION}@@ LANGUAGES C CXX)
+    project(cjson VERSION @@{DYNAMIC_VERSION}@@ LANGUAGES C CXX)
+
+Assume to value of C<$VERSION> is C<2.1.1>, then content of I<cmakelists> as follow after execused:
+    project(cjson VERSION 1.2.1 LANGUAGES C CXX)
+    project(cjson VERSION 2.1.1 LANGUAGES C CXX)
 
 =head1 EXAMPLES
 
@@ -227,6 +256,6 @@ C< ./tools/gen_cmakelists.pl --next_minor --  CMakeLists.txt.in CMakeLists.txt >
 
 =head1 COPYRIGHT
 
-Homqyy
+Copyright (c) 2022 Homqyy
 
 =cut
