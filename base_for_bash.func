@@ -1,6 +1,47 @@
 #!/bin/bash
 
+g_d_err_title=
+
 function error_msg
 {
     echo "$1" >& 2
+}
+
+#
+# @brief: print error message and exit
+#
+# @param message: message to print
+#
+function d_err_exit
+{
+    message=$1
+
+    echo -e "[$g_err_title] $message - Error"
+
+    exit 1
+}
+
+#
+# @brief: print success message
+#
+# @param message: message to print
+#
+function d_success_info
+{
+    message=$1
+
+    echo -e "[$g_err_title] $message - Success"
+}
+
+#
+# @brief: redirect stdout and stderr to file
+#
+# @param file: file to redirect
+#
+function d_redirect_to_file
+{
+    file=$1
+
+    exec 1> $file
+    exec 2>&1
 }
