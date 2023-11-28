@@ -16,7 +16,7 @@ function d_err_exit
 {
     message=$1
 
-    echo -e "[$g_err_title] $message - Error"
+    echo -e "[$g_d_err_title] $message - Error"
 
     exit 1
 }
@@ -30,7 +30,7 @@ function d_success_info
 {
     message=$1
 
-    echo -e "[$g_err_title] $message - Success"
+    echo -e "[$g_d_err_title] $message - Success"
 }
 
 #
