@@ -7,6 +7,16 @@ function error_msg
     echo "$1" >& 2
 }
 
+function d_msg_err
+{
+    echo "Error: $1" >&2
+}
+
+function d_msg_warn
+{
+    echo "Warning: $1" >&2
+}
+
 #
 # @brief: print error message and exit
 #
